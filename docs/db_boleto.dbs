@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MySql" id="Project_80b852" database="MySql" >
+	<schema name="db_boleto" catalogname="db_boleto" >
+		<table name="banco" >
+			<column name="banco_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="banco_codigo" type="varchar" length="10" jt="12" />
+			<column name="banco_nome" type="varchar" length="100" jt="12" />
+			<index name="pk_banco" unique="PRIMARY_KEY" >
+				<column name="banco_id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="cedente" >
+			<column name="cedente_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="cedente_nomerazao" type="varchar" length="100" jt="12" />
+			<column name="cedente_cpfcnpj" type="varchar" length="18" jt="12" />
+			<column name="cedente_telefone" type="varchar" length="14" jt="12" />
+			<column name="cedente_email" type="varchar" length="100" jt="12" />
+			<column name="cedente_cep" type="varchar" length="9" jt="12" />
+			<column name="cedente_logradouro" type="varchar" length="100" jt="12" />
+			<column name="cedente_status" type="enum" length="2" jt="12" >
+				<defo>&#039;A&#039;</defo>
+				<enumeration>&#039;A&#039;,&#039;I&#039;</enumeration>
+			</column>
+			<column name="cedente_cidade" type="varchar" length="100" jt="12" />
+			<column name="cedente_estado" type="varchar" length="50" jt="12" />
+			<column name="cedente_setor" type="varchar" length="50" jt="12" />
+			<column name="cedente_tipopessoa" type="enum" jt="12" >
+				<enumeration>&#039;J&#039;,&#039;F&#039;</enumeration>
+			</column>
+			<index name="pk_cedente" unique="PRIMARY_KEY" >
+				<column name="cedente_id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="cliente" >
+			<column name="cliente_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="cliente_nomerazao" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="cliente_cpfcnpj" type="varchar" length="18" jt="12" mandatory="y" />
+			<column name="cliente_telefone" type="varchar" length="12" jt="12" />
+			<column name="cliente_email" type="varchar" length="50" jt="12" />
+			<column name="cliente_cep" type="varchar" length="9" jt="12" />
+			<column name="cliente_endereco" type="varchar" length="100" jt="12" />
+			<column name="cliente_status" type="enum" jt="12" mandatory="y" >
+				<defo>&#039;A&#039;</defo>
+				<enumeration>&#039;A&#039;,&#039;I&#039;</enumeration>
+			</column>
+			<index name="pk_cliente" unique="PRIMARY_KEY" >
+				<column name="cliente_id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="conta" >
+			<column name="conta_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="cedente_id" type="int" jt="4" mandatory="y" />
+			<column name="conta_agencia" type="varchar" length="20" jt="12" />
+			<column name="conta_numero" type="varchar" length="20" jt="12" />
+			<column name="conta_nome" type="varchar" length="50" jt="12" />
+			<column name="conta_status" type="enum" jt="12" >
+				<enumeration>&#039;A&#039;,&#039;I&#039;</enumeration>
+			</column>
+			<column name="conta_carteira" type="varchar" length="20" jt="12" />
+			<column name="conta_agenciadigito" type="varchar" length="2" jt="12" />
+			<column name="conta_numerodigito" type="varchar" length="2" jt="12" />
+			<column name="conta_contrato" type="varchar" length="20" jt="12" />
+			<column name="conta_convenio" type="varchar" length="20" jt="12" />
+			<column name="conta_obscaixa" type="varchar" length="500" jt="12" />
+			<column name="conta_taxajurosmes" type="double" jt="8" />
+			<column name="conta_taxamulta" type="double" jt="8" />
+			<column name="conta_taxadesconto" type="double" jt="8" />
+			<column name="conta_diasprotesto" type="int" jt="4" />
+			<column name="banco_id" type="int" jt="4" />
+			<column name="conta_moeda" type="varchar" length="50" jt="12" />
+			<index name="pk_conta" unique="PRIMARY_KEY" >
+				<column name="conta_id" />
+			</index>
+			<index name="idx_conta" unique="NORMAL" >
+				<column name="cedente_id" />
+			</index>
+			<index name="idx_conta_0" unique="NORMAL" >
+				<column name="banco_id" />
+			</index>
+			<fk name="fk_conta" to_schema="db_boleto" to_table="cedente" >
+				<fk_column name="cedente_id" pk="cedente_id" />
+			</fk>
+			<fk name="fk_conta_0" to_schema="db_boleto" to_table="banco" >
+				<fk_column name="banco_id" pk="banco_id" />
+			</fk>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="lancamento" >
+			<column name="lancamento_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="sacado_id" type="int" jt="4" mandatory="y" />
+			<column name="cedente_id" type="int" jt="4" mandatory="y" />
+			<column name="usuario_id" type="int" jt="4" mandatory="y" />
+			<column name="lancamento_dthemissao" type="datetime" jt="93" />
+			<column name="lancamento_valor" type="double" jt="8" />
+			<column name="lancamento_demonstrativo" type="varchar" length="500" jt="12" />
+			<column name="lancamento_status" type="enum" length="2" jt="12" >
+				<defo>&#039;E&#039;</defo>
+				<enumeration>&#039;E&#039;,&#039;P&#039;,&#039;R&#039;,&#039;C&#039;</enumeration>
+				<comment><![CDATA[[E] emitido [P] pago [R] remessa [C] cancelado]]></comment>
+			</column>
+			<column name="lancamento_dtvenc" type="date" jt="91" />
+			<column name="conta_id" type="int" jt="4" mandatory="y" />
+			<index name="pk_boleto" unique="PRIMARY_KEY" >
+				<column name="lancamento_id" />
+			</index>
+			<index name="idx_boleto" unique="NORMAL" >
+				<column name="sacado_id" />
+			</index>
+			<index name="idx_boleto_0" unique="NORMAL" >
+				<column name="usuario_id" />
+			</index>
+			<index name="idx_boleto_1" unique="NORMAL" >
+				<column name="cedente_id" />
+			</index>
+			<index name="idx_lancamento" unique="NORMAL" >
+				<column name="conta_id" />
+			</index>
+			<fk name="fk_boleto" to_schema="db_boleto" to_table="sacado" >
+				<fk_column name="sacado_id" pk="sacado_id" />
+			</fk>
+			<fk name="fk_boleto_0" to_schema="db_boleto" to_table="usuario" >
+				<fk_column name="usuario_id" pk="usuario_id" />
+			</fk>
+			<fk name="fk_boleto_1" to_schema="db_boleto" to_table="cedente" >
+				<fk_column name="cedente_id" pk="cedente_id" />
+			</fk>
+			<fk name="fk_lancamento" to_schema="db_boleto" to_table="conta" >
+				<fk_column name="conta_id" pk="conta_id" />
+			</fk>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="sacado" >
+			<column name="sacado_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="sacado_nomerazao" type="varchar" length="100" jt="12" />
+			<column name="sacado_cpfcnpj" type="varchar" length="18" jt="12" />
+			<column name="sacado_telefone" type="varchar" length="14" jt="12" />
+			<column name="sacado_email" type="varchar" length="100" jt="12" />
+			<column name="sacado_cep" type="varchar" length="9" jt="12" />
+			<column name="sacado_logradouro" type="varchar" length="100" jt="12" />
+			<column name="sacado_status" type="enum" length="2" jt="12" >
+				<defo>&#039;A&#039;</defo>
+				<enumeration>&#039;A&#039;,&#039;I&#039;</enumeration>
+			</column>
+			<column name="sacado_cidade" type="varchar" length="50" jt="12" />
+			<column name="sacado_estado" type="varchar" length="50" jt="12" />
+			<column name="sacado_setor" type="varchar" length="50" jt="12" />
+			<column name="sacado_tipopessoa" type="enum" jt="12" >
+				<enumeration>&#039;F&#039;,&#039;J&#039;</enumeration>
+			</column>
+			<index name="pk_sacado" unique="PRIMARY_KEY" >
+				<column name="sacado_id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+		<table name="usuario" >
+			<column name="usuario_id" type="int" jt="4" mandatory="y" autoincrement="y" />
+			<column name="usuario_nome" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="usuario_cpf" type="varchar" length="14" jt="12" mandatory="y" />
+			<column name="usuario_telefone" type="varchar" length="14" jt="12" />
+			<column name="usuario_senha" type="varchar" length="100" jt="12" />
+			<column name="usuario_dtnasc" type="date" jt="91" />
+			<column name="usuario_logradouro" type="varchar" length="100" jt="12" />
+			<column name="usuario_cep" type="varchar" length="9" jt="12" />
+			<column name="usuario_status" type="enum" jt="12" >
+				<defo>&#039;A&#039;</defo>
+				<enumeration>&#039;A&#039;,&#039;I&#039;</enumeration>
+			</column>
+			<column name="usuario_cidade" type="varchar" length="50" jt="12" />
+			<column name="usuario_estado" type="varchar" length="50" jt="12" />
+			<column name="usuario_setor" type="varchar" length="50" jt="12" />
+			<index name="pk_usuario" unique="PRIMARY_KEY" >
+				<column name="usuario_id" />
+			</index>
+			<storage><![CDATA[engine=InnoDB]]></storage>
+		</table>
+	</schema>
+	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.25-bin.jar" host="192.168.254.50" port="3306" instance="db_boleto" user="user_msms" passwd="aG9tZV95c3NhZjU4NnJ4Ylk=" schema_mapping="" />
+	<layout id="Layout_81b16f" name="Default" show_relation_columns="y" >
+		<entity schema="db_boleto" name="sacado" color="b2cdf7" x="675" y="45" />
+		<entity schema="db_boleto" name="cedente" color="b2cdf7" x="510" y="45" />
+		<entity schema="db_boleto" name="usuario" color="b2cdf7" x="840" y="45" />
+		<entity schema="db_boleto" name="cliente" color="b2cdf7" x="45" y="45" />
+		<entity schema="db_boleto" name="banco" color="b2cdf7" x="300" y="390" />
+		<entity schema="db_boleto" name="conta" color="d0def5" x="300" y="45" />
+		<entity schema="db_boleto" name="lancamento" color="b2cdf7" x="510" y="315" />
+	</layout>
+</project>

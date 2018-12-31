@@ -1,0 +1,135 @@
+/* 
+    Document   : geral
+    Created on : 15/02/2013, 23:08:18
+    Author     : Gustavo
+    Description:
+    Purpose of the stylesheet follows.
+*/
+
+
+/*
+body{
+    background: url(../images/login/bg.png) repeat;
+}
+*/
+/*
+body section{
+    background: #FFFFFF;
+}*/
+
+/* 
+    Document   : geral
+    Created on : 15/02/2013, 23:08:18
+    Author     : Gustavo
+    Description:
+    Purpose of the stylesheet follows.
+*/
+
+
+* {
+    outline: none !important;
+    outline-style:none !important;
+}
+
+/*Loading*/
+body.loading { overflow: hidden; }
+body.loading .modal-loading { display: block; }
+
+.item img {
+    background: #FFF url(../images/loading.gif) 50% 50% no-repeat;
+}
+
+.modal-loading {
+    display: none;
+    position: fixed;
+    z-index: 6000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100% !important;
+    background: rgba( 255, 255, 255, .95 ) url(../images/loading.gif) 50% 50% no-repeat;
+    opacity: 0.95;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 95);
+    filter: alpha(opacity = 95)
+}
+
+/*
+*Titulo do formulário
+*/
+.tituloForm{
+    float: left;
+    color: #969696;
+    border-bottom: 1px solid #969696;
+    /*text-decoration: underline;*/
+}
+
+
+/*
+* Classe da div para 
+*/
+.botnAction{    
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+}
+
+/*
+*Icones dos botoes
+*/
+
+.iconNovo{
+    background: url(../images/novo.png) no-repeat;
+    height: 48px;
+    width: 48px;
+    border: none;
+
+}
+.iconEdit{
+    background: url(../images/edit.png) no-repeat;
+    height: 48px;
+    width: 48px;
+    border: none;
+
+}
+.iconDelete{
+    background: url(../images/delete.png) no-repeat;
+    height: 48px;
+    width: 48px;
+    border: none;
+
+}
+.iconPrint{
+    background: url(../images/printer.png) no-repeat;
+    height: 48px;
+    width: 48px;
+    border: none;
+
+}
+.iconVenda{
+    background: url(../images/buy.png) no-repeat;
+    height: 48px;
+    width: 48px;
+    border: none;
+
+}
+
+/*
+*Mensagem validacao do formulário
+*/
+.fields{
+    float: none;
+}
+
+/*
+*Mensagem validacao do formulário
+*/
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+
+/*
+*
+*/
+.ui-multiselect{
+    height: 30px !important;
+    
+}
